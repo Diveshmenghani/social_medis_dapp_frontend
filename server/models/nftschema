@@ -1,0 +1,18 @@
+const mongoose = require('mongoose');
+
+const commentSchema = new mongoose.Schema({
+  user: { type: String, required: true },
+  text: { type: String, required: true },
+  date: { type: Date, default: Date.now },
+});
+
+const nftSchema = new mongoose.Schema({
+  nftcode: { type: Number, required: true },
+  nftId: { type: String, required: true, unique: true },
+  likes: { type: Number, default: 0 },
+  likesList: { type: [String], default: [] }, // Tracks users who liked the NFT
+  comments: [commentSchema],
+});
+
+
+module.exports = mongoose.model('NFT', nftSchema);
